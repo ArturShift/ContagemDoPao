@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contagem para o pão da Camily</title>
+  <style>
+    body {
+      background-color: #f5f5f5;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .contador {
+      display: flex;
+      gap: 15px;
+    }
+
+    .bloco {
+      background-color: #fff;
+      border: 2px solid #f25f4c;
+      border-radius: 10px;
+      padding: 20px;
+      min-width: 70px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .bloco .valor {
+      font-size: 2rem;
+      color: #f25f4c;
+    }
+
+    .bloco .label {
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Contagem até o dia que a Camily vai trazer o pão 🥖</h1>
+  <div class="contador" id="contador">
+    <div class="bloco">
+      <div class="valor" id="dias">00</div>
+      <div class="label">Dias</div>
+    </div>
+    <div class="bloco">
+      <div class="valor" id="horas">00</div>
+      <div class="label">Horas</div>
+    </div>
+    <div class="bloco">
+      <div class="valor" id="minutos">00</div>
+      <div class="label">Min</div>
+    </div>
+    <div class="bloco">
+      <div class="valor" id="segundos">00</div>
+      <div class="label">Seg</div>
+    </div>
+  </div>
+
+  <script>
+    const dataFinal = new Date("2025-04-26T00:00:00");
+
+    function atualizarContador() {
+      const agora = new Date();
+      const diferenca = dataFinal - agora;
+
+      if (diferenca <= 0) {
+        document.getElementById("contador").innerHTML = "<h2>A Camily já trouxe o pão! 🥳</h2>";
+        return;
+      }
+
+      const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((diferenca / (1000 * 60 * 60)) % 24);
+      const minutos = Math.floor((diferenca / (1000 * 60)) % 60);
+      const segundos = Math.floor((diferenca / 1000) % 60);
+
+      document.getElementById("dias").textContent = String(dias).padStart(2, '0');
+      document.getElementById("horas").textContent = String(horas).padStart(2, '0');
+      document.getElementById("minutos").textContent = String(minutos).padStart(2, '0');
+      document.getElementById("segundos").textContent = String(segundos).padStart(2, '0');
+    }
+
+    atualizarContador();
+    setInterval(atualizarContador, 1000);
+  </script>
+</body>
+</html>
